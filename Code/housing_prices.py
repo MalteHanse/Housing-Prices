@@ -65,7 +65,7 @@ if __name__ == "__main__":
 
     model.fit(X_train, y_train)
 
-    ID, X_test, y_test = load_test()
+    ID, X_test, y_test = load_test()  # y_test is actually not true label it is just there to show what a result could look like so fix this
     X_test = X_test[columns_kept]
     test_score = model.score(X_test, y_test)
     print("Score on test set: ", test_score, end=" ")
