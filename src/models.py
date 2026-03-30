@@ -1,6 +1,6 @@
 from sklearn.pipeline import Pipeline
 from sklearn.linear_model import LinearRegression, Ridge
-from sklearn.ensemble import RandomForestRegressor
+from sklearn.ensemble import RandomForestRegressor, GradientBoostingRegressor
 
 def build_model(preprocessor, model_type="Ridge"):
     if model_type == "Ridge":
@@ -9,6 +9,8 @@ def build_model(preprocessor, model_type="Ridge"):
         regressor = LinearRegression()
     elif model_type == "RF":
         regressor = RandomForestRegressor()
+    elif model_type == "XGBoost":
+        regressor = GradientBoostingRegressor()
     
     else:
         raise ValueError(f"No model named {model_type}")

@@ -4,7 +4,7 @@ from src.models import build_model
 from src.preprocessing import build_preprocessor, process_data
 from src.evaluation import split_data, cross_val, get_rmse
 
-MODEL_TYPE = "RF"  # "Linear": LinearRegression, "Ridge":RidgeRegression, "RF":RandomForrest
+MODEL_TYPE = "XGBoost"  # "Linear": LinearRegression, "Ridge":RidgeRegression, "RF":RandomForrest, "XGBoost":GradientBoosting
 USE_SCALING = True
 REMOVE_UNINFORMATIVE = True
 
