@@ -1,5 +1,6 @@
 import numpy as np
 import matplotlib.pyplot as plt
+import seaborn as sns
 from src.data_loader import load_train
 from src.models import build_model
 from src.preprocessing import build_preprocessor, process_data
@@ -40,7 +41,13 @@ cross_val_score = eval.cross_val(model, X_train, y_train)
 
 importances = eval.get_original_feature_importance(model, X_train)
 
+# determine correlation  matrix
+eval.plot_correlation_matrix(X_train, show=False)
+
 # visualize feature importance
-fig, ax = plt.subplots()
-eval.plot_feature_importance(importances, ax)
+fig, ax = plt.subplots(1, 2)
+eval.plot_feature_importance(importances, ax[0], show=False)
+eval.plot_permutation_importance(ax[1], model, X_test, y_test, show=False)
+fig.tight_layout()
+fig.savefig("Figures/feature_importance.png", dpi=300)
 
