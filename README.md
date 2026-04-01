@@ -1,2 +1,2 @@
-# Housing-Prices
-Project for simple housing price prediction.
+# Projects
+Generel Data-Science projects.
