@@ -1,14 +1,36 @@
 from src.data_loader import load_data
-from src.preprocessing import preprcoessing
+from src.preprocessing import preprocessing, build_preprocessor
+from src.models import build_model
+import src.evaluation as eval
+import matplotlib.pyplot as plt
+
+# silence warning
+import warnings
+warnings.filterwarnings("ignore", message="Could not find the number of physical cores")
+
+
+MODEL_TYPE = "kmeans"
 
 # load the dataset
 data = load_data()
 
-# sample only few, so testing becomes faster
+# sample only few, so testing becomes faster (remove for final model)
 data = data.sample(10000, random_state=50)
 
 # process the data into a dataframe, that gives customer specified information (recency, frequency, value)
-data = preprcoessing(data)
+data = preprocessing(data)
+eval.visualize_data(data, show=False)
+
+# build and fit model
+model = build_model(build_preprocessor(data), model_type=MODEL_TYPE)
+model.fit(data)
+
+labels = model.predict(data)
+
+# visualize result
+fig = plt.figure()
+ax = fig.add_subplot(projection="3d")
+eval.visualize_clusters(ax, data, labels, show=True)
 
 
-print(data)
+
