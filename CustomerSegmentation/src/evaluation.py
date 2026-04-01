@@ -29,3 +29,9 @@ def visualize_clusters(ax, data, labels, show=True):
     if show:
         plt.show()
 
+def create_elbow(X, model):
+    # loop over different amount of cluster values
+    # visually determine the "best" amount
+
+
+
