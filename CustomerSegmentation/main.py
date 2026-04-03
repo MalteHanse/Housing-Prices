@@ -22,7 +22,7 @@ data = preprocessing(data)
 eval.visualize_data(data, show=False)
 
 # build and fit model
-model = build_model(build_preprocessor(data), model_type=MODEL_TYPE)
+model = build_model(build_preprocessor(data), model_type=MODEL_TYPE, clusters=5)  # amount of clusters found in elbow experiment
 model.fit(data)
 
 labels = model.predict(data)
@@ -30,7 +30,14 @@ labels = model.predict(data)
 # visualize result
 fig = plt.figure()
 ax = fig.add_subplot(projection="3d")
-eval.visualize_clusters(ax, data, labels, show=True)
+eval.visualize_clusters(ax, data, labels, show=False)
+
+# evaluate the results and see how the groups differ
+eval.evaulate_groups(data, labels)
+
+# the boxplots are prone by outliers
+# the data should be normalized before making the boxplots and maybe consider removing outliers
+eval.visualize_boxplots(data, labels, show=True)
 
 
 

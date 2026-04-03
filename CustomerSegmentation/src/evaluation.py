@@ -29,9 +29,38 @@ def visualize_clusters(ax, data, labels, show=True):
     if show:
         plt.show()
 
-def create_elbow(X, model):
-    # loop over different amount of cluster values
-    # visually determine the "best" amount
+def evaulate_groups(data, labels):
+    data["cluster"] = labels
+    cunclusion_data = data.groupby("cluster").agg({
+        "recency": "mean",
+        "frequency": "mean",
+        "value": "mean"
+    }).round(2)
+    return cunclusion_data
+
+def visualize_boxplots(data, labels, show=True):
+    fig, axes = plt.subplots(1, len(data.columns) - 1, figsize=(12, 5))
+    data["cluster"] = labels
+    
+    feature_cols = [col for col in data.columns if col != "cluster"]
+    for ax, col in zip(axes, feature_cols):
+        positions = []
+        for cluster in sorted(np.unique(labels)):
+            df = data[data["cluster"] == cluster]
+            bp = ax.boxplot(df[col], positions=[cluster], widths=0.6)
+            positions.append(cluster)
+        ax.set_xticks(positions)
+        ax.set_xticklabels(positions)
+        ax.set_xlabel("Cluster")
+        ax.set_ylabel(col)
+    
+    fig.tight_layout()
+    fig.savefig("figures/boxplots.png", dpi=300)
+
+    if show:
+        plt.show()
+
+
 
 
 

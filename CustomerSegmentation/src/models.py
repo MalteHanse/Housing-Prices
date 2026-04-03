@@ -2,9 +2,9 @@ from sklearn.cluster import KMeans
 from sklearn.pipeline import Pipeline
 from sklearn.decomposition import PCA
 
-def build_model(preprocessor, model_type="kmeans"):
+def build_model(preprocessor, model_type="kmeans", clusters=3):
     if model_type == "kmeans":
-        model = KMeans(3)
+        model = KMeans(clusters)
 
     pipeline = Pipeline([
         ("preprocessor", preprocessor),
