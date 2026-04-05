@@ -34,7 +34,7 @@ def build_preprocessor(X):
     # data
     col_transformer = ColumnTransformer([
         ("freq_recency", PowerTransformer(method='yeo-johnson'), ["recency", "frequency"]),
-        ("value", FunctionTransformer(lambda x: np.sign(x) * np.log1p(np.abs(x))), ["value"])
+        ("value", FunctionTransformer(lambda x: np.sign(x) * np.log1p(np.abs(x))), ["value"])  # np.log1p(x) = np.log(x + 1)
     ], remainder='passthrough')
 
     preprocessor = Pipeline([

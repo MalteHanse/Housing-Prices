@@ -15,14 +15,14 @@ MODEL_TYPE = "kmeans"
 data = load_data()
 
 # sample only few, so testing becomes faster (remove for final model)
-data = data.sample(10000, random_state=50)
+# data = data.sample(10000, random_state=50)
 
 # process the data into a dataframe, that gives customer specified information (recency, frequency, value)
 data = preprocessing(data)
-eval.visualize_data(data, show=False)
+# eval.visualize_data(data, show=False)
 
 # build and fit model
-model = build_model(build_preprocessor(data), model_type=MODEL_TYPE, clusters=5)  # amount of clusters found in elbow experiment
+model = build_model(build_preprocessor(data), model_type=MODEL_TYPE, clusters=3)  # amount of clusters found in elbow experiment
 model.fit(data)
 
 labels = model.predict(data)
@@ -35,9 +35,16 @@ eval.visualize_clusters(ax, data, labels, show=False)
 # evaluate the results and see how the groups differ
 eval.evaulate_groups(data, labels)
 
-# the boxplots are prone by outliers
-# the data should be normalized before making the boxplots and maybe consider removing outliers
-eval.visualize_boxplots(data, labels, show=True)
+# the boxplots now use the normalized data and clip outliers
+preprocessor = build_preprocessor(data)
+eval.visualize_boxplots(data, labels, preprocessor=preprocessor, show=True)
 
-
+# finally the customers can be split up in three different groups. The first group
+# has normaldistributed behavior in all three categories, while the second has a low recency
+# but has bought items more frequently and with more value. The last group
+# has a high recency, but has bought for less money and less frequent.
+# This might mean that the last group probably are churned customers,
+# since they have not left much money and have not bought items for a longer
+# time. The second group are most likely customers who come and order
+# frequent. The first group are the rest, which is the average customer.
 

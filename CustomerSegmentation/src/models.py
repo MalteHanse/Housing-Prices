@@ -4,7 +4,7 @@ from sklearn.decomposition import PCA
 
 def build_model(preprocessor, model_type="kmeans", clusters=3):
     if model_type == "kmeans":
-        model = KMeans(clusters)
+        model = KMeans(clusters, random_state=42)
 
     pipeline = Pipeline([
         ("preprocessor", preprocessor),

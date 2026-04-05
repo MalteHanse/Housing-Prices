@@ -12,7 +12,7 @@ from src.preprocessing import preprocessing, build_preprocessor
 data = load_data()
 data = data.sample(10000, random_state=50)
 
-n_clusters = np.arange(1, 20)
+n_clusters = np.arange(1, 10)
 intertias = []
 data = preprocessing(data)
 
@@ -34,4 +34,7 @@ ax.legend()
 fig.savefig("figures/elbow.png", dpi=300)
 plt.show()
 
-# this experiment shows that 5 clusters is a optimal choice here
+# this experiment shows that 3 clusters is a optimal choice here
+# one could also argue 4 or 5, but it has been observed that kmeans 
+# with this amount of clusters is in consistent with the grouping
+# also the cluster visulization in main.py suggets 3
